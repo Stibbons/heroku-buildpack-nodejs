@@ -82,6 +82,10 @@ ensure_procfile "$start_method" "$src_dir"
 warn_start "$start_method"
 
 head "Creating runtime environment"
+
+create_env() {
+  write_export "$bp_dir" "$build_dir"
+}
 create_env # can't indent the whole thing because piping causes subshells; no exporting possible
 list_node_config | indent
 
