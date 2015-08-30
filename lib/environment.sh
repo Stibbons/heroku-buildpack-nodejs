@@ -38,6 +38,7 @@ export_env_dir() {
     fi
   fi
 }
+
 write_profile() {
   info "Creating runtime environment"
   mkdir -p $build_dir/.profile.d
