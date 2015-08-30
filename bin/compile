@@ -26,6 +26,8 @@ warnings=$(mktemp)
 echo "-----> build_dir=$build_dir"
 echo "-----> sub_dir=$sub_dir"
 echo "-----> src_dir=$src_dir"
+echo "-----> bp_dir=$bp_dir"
+echo "-----> heroku_dir=$heroku_dir"
 echo "-----> cache_dir=$cache_dir"
 echo "-----> env_dir=$env_dir"
 
@@ -84,7 +86,8 @@ warn_start "$start_method"
 head "Creating runtime environment"
 
 create_env() {
-  write_export "$bp_dir" "$build_dir"
+  write_profile
+  write_export
 }
 create_env # can't indent the whole thing because piping causes subshells; no exporting possible
 list_node_config | indent
@@ -92,8 +95,6 @@ list_node_config | indent
 ####### Finalize the build
 
 head "Finalizing build"
-write_profile
-write_export
 clean_npm
 clean_cache
 create_cache
