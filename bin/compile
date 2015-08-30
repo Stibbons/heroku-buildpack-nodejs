@@ -32,6 +32,7 @@ echo "-----> env_dir=$env_dir"
 # Load dependencies
 source $bp_dir/lib/common.sh
 source $bp_dir/lib/build.sh
+source $bp_dir/lib/environment.sh
 source $bp_dir/lib/warnings.sh
 
 # Avoid GIT_DIR leak from previous build steps
@@ -79,6 +80,10 @@ build_dependencies
 head "Checking startup method"
 ensure_procfile "$start_method" "$src_dir"
 warn_start "$start_method"
+
+head "Creating runtime environment"
+create_env # can't indent the whole thing because piping causes subshells; no exporting possible
+list_node_config | indent
 
 ####### Finalize the build
 
